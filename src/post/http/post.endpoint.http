@@ -1,0 +1,21 @@
+POST http://localhost:3000/posts
+Content-Type: application/json
+{
+    "title": "The Passport of Mallam Musa",
+    "postType": "Life Style",
+    "postStatus": "published",
+    "content": "The new Passport of Mallam Musa",
+    "metaOptions": {
+        "metaValue": "{\"sidebar\": true}"
+    },
+    "tags": [3],
+    "userId": 7
+    // "publishedDate": "2015-01-01T00:00:00"
+}
+
+  GET http://localhost:3000/posts/
+  
+  GET http://localhost:3000/posts?postType=NEWS&postStatus=PUBLISHED&page=1&limit=10
+
+  //Delete
+  DELETE http://localhost:3000/posts/2
