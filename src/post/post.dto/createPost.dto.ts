@@ -50,6 +50,10 @@ export class CreatePostDto {
   @IsInt({ each: true })
   tags: number[];
 
+  @IsNotEmpty()
+  @IsString()
+  category: string;
+
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionsDto)

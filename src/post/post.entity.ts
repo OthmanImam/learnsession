@@ -5,6 +5,7 @@ import { MetaOption } from 'src/meta-options/entities/meta-option.entity';
 import { User } from 'src/users/user.entity';
 import { Tag } from 'src/tags/entities/tag.entity';
 import { timestamp } from 'rxjs';
+import { Category } from 'src/category/entities/category.entity';
 
 @Entity()
 export class PostEntity {
@@ -45,6 +46,10 @@ export class PostEntity {
 
   @ManyToMany(() => Tag, (tags) => tags.posts)
   tags: Tag[];
+
+  @OneToOne(()=>Category, (category) => category.name)
+  @JoinColumn()
+  category: number;
 
   @Column({
     type: 'timestamp',

@@ -11,6 +11,11 @@ import { MetaOptionsModule } from './meta-options/meta-options.module';
 import { TagsService } from './tags/tags.service';
 import { MetaOptionsService } from './meta-options/meta-options.service';
 import { AuthModule } from './auth/auth.module';
+import { CategoryModule } from './category/category.module';
+import { CategoryService } from './category/category.service';
+import { HashingProvider } from './auth/providers/hashing.provider';
+import { BcryptProvider } from './auth/providers/bcrypt.provider';
+import { CreateUserProvider } from './users/providers/create-user.provider';
 
 
 @Module({
@@ -36,10 +41,11 @@ import { AuthModule } from './auth/auth.module';
     TagsModule,
     MetaOptionsModule,
     AuthModule,
-    
+    CategoryModule,
+
   ],
   controllers: [AppController],
-  providers: [AppService, UserService, PostService, TagsService, MetaOptionsService],
-  
+  providers: [AppService, UserService, PostService, TagsService, MetaOptionsService, CategoryService, { provide: HashingProvider, useClass: BcryptProvider }, CreateUserProvider],
+
 })
 export class AppModule {}

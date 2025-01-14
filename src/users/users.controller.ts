@@ -16,13 +16,18 @@ import {
   import { GetUserParamDto } from 'src/users/dto/get-usersParam.dto';
   import { UserService } from './providers/user.services';
   import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { DeleteUserDto} from './dto/delete-user.dto';
+import { CreateUserProvider } from './providers/create-user.provider';
   
   // http://localhost:3000/users
   
   @Controller('user')
   @ApiTags('users')
   export class UsersController {
-    constructor(private readonly userService: UserService) {} // Injecting a dependency of a userService
+    constructor(
+      private readonly userService: UserService,
+      private readonly createUserProvider: CreateUserProvider, // Injecting a dependency of a createUserProvider
+    ) {} // Injecting a dependency of a userService
   
     @ApiOperation({ summary: 'this fetches all users' })
     @ApiResponse({
@@ -54,7 +59,7 @@ import {
     public createUser(
       @Body(new ValidationPipe()) createUserDto: CreateUserDto, // Using the validation DTO as the body type
     ) {
-      return this.userService.createUser(createUserDto); // Creating a new user
+      return this.createUserProvider.createUser(createUserDto); // Creating a new user
     }
   
     @Patch()
@@ -66,7 +71,7 @@ import {
   
     @Delete()
     @ApiOperation({ summary: 'This deletes a user' })
-    public deleteUser() {
-      return 'Request sent to delete a user';
+    public deleteUser(@Param('id') id: number) {
+      return this.userService.deleteUser(id);
     }
   }
